@@ -6,3 +6,5 @@ start:
 	npm start
 start-backend:
 	npx start-server -s ./frontend/build
+lint:
+	npx eslint .
