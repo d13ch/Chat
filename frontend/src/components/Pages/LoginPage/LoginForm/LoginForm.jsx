@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import routes from '../../../../routes/index.js';
+import AuthContext from '../../../../contexts/AuthContext.jsx';
 
-function LoginForm() {
+const LoginForm = () => {
   const SignupSchema = Yup.object().shape({
     username: Yup.string().required('Обязательно для ввода'),
     password: Yup.string().required('Обязательно для ввода'),
   });
+
+  const { logIn } = useContext(AuthContext);
+  const [authFailed, setAuthFailed] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <Formik
@@ -16,12 +24,30 @@ function LoginForm() {
         password: '',
       }}
       validationSchema={SignupSchema}
+      onSubmit={async (values, actions) => {
+        try {
+          const { data } = await axios.post(routes.loginPath(), {
+            username: values.username,
+            password: values.password,
+          });
+          actions.setSubmitting(false);
+          logIn(data);
+          navigate('/');
+          // localStorage.setItem('user', JSON.stringify(data));
+          // console.log(localStorage);
+        } catch (error) {
+          if (error.isAxiosError && error.response.status === 401) {
+            setAuthFailed(true);
+          }
+          // console.log(error);
+        }
+      }}
     >
-      {({ values, handleChange }) => (
-        <Form className="col-12">
+      {({ values, handleChange, handleSubmit }) => (
+        <Form onSubmit={handleSubmit} className="col-12">
           <h1 className="text-center">Войти</h1>
           <Form.Group className="mt-3">
-            <Form.Label className="mx-2 fw-semibold">Имя пользователя</Form.Label>
+            <Form.Label htmlFor="username" className="mx-2 fw-semibold">Имя пользователя</Form.Label>
             <Form.Control
               type="text"
               placeholder="Введите имя пользователя"
@@ -29,11 +55,12 @@ function LoginForm() {
               id="username"
               value={values.username}
               onChange={handleChange}
+              isInvalid={authFailed}
               required
             />
           </Form.Group>
           <Form.Group className="mt-3">
-            <Form.Label className="mx-2 fw-semibold">Пароль</Form.Label>
+            <Form.Label htmlFor="password" className="mx-2 fw-semibold">Пароль</Form.Label>
             <Form.Control
               type="password"
               placeholder="Введите пароль"
@@ -41,8 +68,10 @@ function LoginForm() {
               id="password"
               value={values.password}
               onChange={handleChange}
+              isInvalid={authFailed}
               required
             />
+            <Form.Control.Feedback type="invalid">Неправильные имя пользователя и/или пароль</Form.Control.Feedback>
           </Form.Group>
           <div className="d-flex justify-content-end">
             <Button className="mt-4 mx-1" variant="primary" type="submit">
@@ -54,6 +83,6 @@ function LoginForm() {
     </Formik>
 
   );
-}
+};
 
 export default LoginForm;
