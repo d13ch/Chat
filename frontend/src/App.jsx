@@ -5,9 +5,11 @@ import LoginPage from './components/Pages/LoginPage/LoginPage';
 import NotFoundPage from './components/Pages/NotFoundPage';
 import AuthProvider from './components/AuthProvider';
 import ProtectedRoute from './components/ProtectedRoute';
+import NavBar from './components/NavBar.jsx';
 
 const App = () => (
   <AuthProvider>
+    <NavBar />
     <div className="d-flex flex-column h-100">
       <BrowserRouter>
         <Routes>
