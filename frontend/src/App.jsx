@@ -9,8 +9,8 @@ import NavBar from './components/NavBar.jsx';
 
 const App = () => (
   <AuthProvider>
-    <NavBar />
     <div className="d-flex flex-column h-100">
+      <NavBar />
       <BrowserRouter>
         <Routes>
           <Route

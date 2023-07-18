@@ -7,7 +7,7 @@ import LoginForm from './LoginForm/LoginForm.jsx';
 const LoginPage = () => (
   <Container className="h-100" fluid>
     <Row className="justify-content-center align-content-center h-100">
-      <Col md="6" xxl="6">
+      <Col className="col-10" md="6" xxl="6">
         <Card className="my-5 shadow">
           <Card.Body className="row p-5">
             <LoginForm />

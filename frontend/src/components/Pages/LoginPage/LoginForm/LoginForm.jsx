@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import routes from '../../../../routes/index.js';
 import AuthContext from '../../../../contexts/AuthContext.jsx';
 
@@ -16,6 +17,7 @@ const LoginForm = () => {
   const { logIn } = useContext(AuthContext);
   const [authFailed, setAuthFailed] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Formik
@@ -33,8 +35,6 @@ const LoginForm = () => {
           actions.setSubmitting(false);
           logIn(data);
           navigate('/');
-          // localStorage.setItem('user', JSON.stringify(data));
-          // console.log(localStorage);
         } catch (error) {
           if (error.isAxiosError && error.response.status === 401) {
             setAuthFailed(true);
@@ -45,12 +45,12 @@ const LoginForm = () => {
     >
       {({ values, handleChange, handleSubmit }) => (
         <Form onSubmit={handleSubmit} className="col-12">
-          <h1 className="text-center">Войти</h1>
+          <h1 className="text-center">{t('loginPage.header')}</h1>
           <Form.Group className="mt-3">
-            <Form.Label htmlFor="username" className="mx-2 fw-semibold">Имя пользователя</Form.Label>
+            <Form.Label htmlFor="username" className="mx-2 fw-semibold">{t('loginPage.username')}</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Введите имя пользователя"
+              placeholder={t('loginPage.usernamePlaceholder')}
               name="username"
               id="username"
               value={values.username}
@@ -60,10 +60,10 @@ const LoginForm = () => {
             />
           </Form.Group>
           <Form.Group className="mt-3">
-            <Form.Label htmlFor="password" className="mx-2 fw-semibold">Пароль</Form.Label>
+            <Form.Label htmlFor="password" className="mx-2 fw-semibold">{t('loginPage.password')}</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Введите пароль"
+              placeholder={t('loginPage.passwordPlaceholder')}
               name="password"
               id="password"
               value={values.password}
@@ -75,7 +75,7 @@ const LoginForm = () => {
           </Form.Group>
           <div className="d-flex justify-content-end">
             <Button className="mt-4 mx-1" variant="primary" type="submit">
-              Войти
+              {t('loginPage.enterBtn')}
             </Button>
           </div>
         </Form>
