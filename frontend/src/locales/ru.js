@@ -10,6 +10,16 @@ const ru = {
       usernamePlaceholder: 'Введите имя пользователя',
       passwordPlaceholder: 'Введите пароль',
       enterBtn: 'Войти',
+      wrongInputFeedback: 'Неправильное имя пользователя и/или пароль',
+    },
+    mainPage: {
+      channelsHeader: 'Каналы',
+      messagesCount_zero: '{{count}} сообщений',
+      messagesCount_one: '{{count}} сообщение',
+      messagesCount_few: '{{count}} сообщения',
+      messagesCount_many: '{{count}} сообщений',
+      messagesCount_other: '{{count}} сообщений',
+      formPlaceholder: 'Введите сообщение',
     },
     notFoundPage: {
       notFound: 'Страница не найдена',

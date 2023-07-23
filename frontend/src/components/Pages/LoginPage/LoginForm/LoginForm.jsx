@@ -71,7 +71,7 @@ const LoginForm = () => {
               isInvalid={authFailed}
               required
             />
-            <Form.Control.Feedback type="invalid">Неправильные имя пользователя и/или пароль</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{t('loginPage.wrongInputFeedback')}</Form.Control.Feedback>
           </Form.Group>
           <div className="d-flex justify-content-end">
             <Button className="mt-4 mx-1" variant="primary" type="submit">
