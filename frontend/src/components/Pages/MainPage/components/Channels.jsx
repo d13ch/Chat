@@ -1,13 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ButtonGroup, Button, Nav } from 'react-bootstrap';
 import { BsPlusSquare } from '@react-icons/all-files/bs/BsPlusSquare.esm';
 import { useTranslation } from 'react-i18next';
-import { selectors } from '../../../../slices/channelsSlice.js';
+import { setActiveChannel, selectors } from '../../../../slices/channelsSlice.js';
 
-const Channels = ({ activeChannel }) => {
+const Channels = () => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const channels = useSelector(selectors.selectAll);
+  const activeChannel = useSelector((state) => state.channels.activeChannel);
 
   return (
     <>
@@ -23,7 +25,7 @@ const Channels = ({ activeChannel }) => {
       <Nav justify variant="pills" className="flex-column">
         {channels.map((channel) => (
           <Nav.Item key={channel.name}>
-            <Nav.Link as={Button} className="text-start" active={channel.id === activeChannel}>
+            <Nav.Link as={Button} onClick={() => dispatch(setActiveChannel(channel.id))} className="text-start" active={channel.id === activeChannel}>
               {channel.name}
             </Nav.Link>
           </Nav.Item>

@@ -5,15 +5,15 @@ import { selectors as messagesSelectors } from '../../../../slices/messagesSlice
 import { selectors as channelsSelectors } from '../../../../slices/channelsSlice.js';
 import MessageForm from './MessageForm.jsx';
 
-const Messages = ({ activeChannel }) => {
+const Messages = () => {
   const { t } = useTranslation();
   const messages = useSelector(messagesSelectors.selectAll);
-  const currentChannelMessages = messages.filter(({ channelId }) => channelId === activeChannel.id);
+  const activeChannel = useSelector((state) => state.channels.activeChannel);
+  const currentChannelMessages = messages.filter(({ channelId }) => channelId === activeChannel);
   const messagesCount = currentChannelMessages.length;
   const selectedChannel = useSelector((state) => channelsSelectors
     .selectById(state, activeChannel));
   const header = selectedChannel ? selectedChannel.name : '';
-  // console.log(selectedChannel);
 
   return (
     <div className="h-100 d-flex flex-column px-2">

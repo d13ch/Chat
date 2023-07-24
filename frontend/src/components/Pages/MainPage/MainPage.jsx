@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -6,11 +6,10 @@ import Channels from './components/Channels.jsx';
 import Messages from './components/Messages.jsx';
 import routes from '../../../routes/index.js';
 
-import { addChannels } from '../../../slices/channelsSlice.js';
+import { addChannels, setActiveChannel } from '../../../slices/channelsSlice.js';
 import { addMessages } from '../../../slices/messagesSlice.js';
 
 const MainPage = () => {
-  const [activeChannel, setActiveChannel] = useState();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,10 +23,9 @@ const MainPage = () => {
         },
       });
 
-      setActiveChannel(currentChannelId);
+      dispatch(setActiveChannel(currentChannelId));
       dispatch(addChannels(channels));
       dispatch(addMessages(messages));
-      // console.log(1);
     };
 
     getChannels();
@@ -37,10 +35,10 @@ const MainPage = () => {
     <Container className="shadow h-100 px-0 my-4 overflow-hidden">
       <Row className="flex-row h-100 bg-white">
         <Col md="3" className="col-4 ps-4 bg-light">
-          <Channels activeChannel={activeChannel} />
+          <Channels />
         </Col>
         <Col className="pe-3">
-          <Messages activeChannel={activeChannel} />
+          <Messages />
         </Col>
       </Row>
     </Container>
