@@ -14,6 +14,10 @@ const ru = {
     },
     mainPage: {
       channelsHeader: 'Каналы',
+      channelDropdown: {
+        remove: 'Удалить',
+        rename: 'Переименовать',
+      },
       messagesCount_zero: '{{count}} сообщений',
       messagesCount_one: '{{count}} сообщение',
       messagesCount_few: '{{count}} сообщения',

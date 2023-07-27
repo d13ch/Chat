@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux';
 import { selectors as messagesSelectors } from '../../../../slices/messagesSlice.js';
 import { selectors as channelsSelectors } from '../../../../slices/channelsSlice.js';
 import MessageForm from './MessageForm.jsx';
+import MessagesBox from './MessagesBox.jsx';
 
-const Messages = () => {
+const MessagesPanel = () => {
   const { t } = useTranslation();
   const messages = useSelector(messagesSelectors.selectAll);
   const activeChannel = useSelector((state) => state.channels.activeChannel);
@@ -22,11 +23,12 @@ const Messages = () => {
         <span className="text-muted">{t('mainPage.messagesCount', { count: messagesCount })}</span>
       </div>
       <hr />
+      <MessagesBox messages={currentChannelMessages} />
       <div className="mt-auto mb-4">
-        <MessageForm />
+        <MessageForm activeChannel={activeChannel} />
       </div>
     </div>
   );
 };
 
-export default Messages;
+export default MessagesPanel;

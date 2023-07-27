@@ -5,17 +5,29 @@ import {
 } from 'react-bootstrap';
 import { MdSend } from '@react-icons/all-files/md/MdSend.esm';
 import { useTranslation } from 'react-i18next';
+import socketApi from '../../../../socket';
 
-const MessageForm = () => {
+const MessageForm = ({ activeChannel }) => {
   const inputRef = useRef();
   const { t } = useTranslation();
   const formik = useFormik({
     initialValues: {
-      text: '',
+      body: '',
     },
     onSubmit: (values, actions) => {
-      values.text = '';
-      actions.setSubmitting(false);
+      const { username } = JSON.parse(localStorage.getItem('user'));
+      const newMessage = {
+        body: values.body,
+        channelId: activeChannel,
+        username,
+      };
+      try {
+        socketApi.sendMessage(newMessage);
+        values.body = '';
+        actions.setSubmitting(false);
+      } catch (e) {
+        console.log(e);
+      }
     },
   });
 
@@ -27,15 +39,20 @@ const MessageForm = () => {
     <Form onSubmit={formik.handleSubmit}>
       <Form.Group className="input-group">
         <Form.Control
-          name="text"
-          id="text"
+          name="body"
+          id="body"
           type="text"
           onChange={formik.handleChange}
-          value={formik.values.text}
+          value={formik.values.body}
           placeholder={t('mainPage.formPlaceholder')}
           ref={inputRef}
         />
-        <ButtonGroup as={Button} type="submit" className="align-items-center">
+        <ButtonGroup
+          as={Button}
+          type="submit"
+          className="align-items-center"
+          disabled={formik.values.body === '' || formik.isSubmitting}
+        >
           <MdSend />
         </ButtonGroup>
       </Form.Group>

@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import Channels from './components/Channels.jsx';
-import Messages from './components/Messages.jsx';
+import ChannelsPanel from './components/ChannelsPanel.jsx';
+import MessagesPanel from './components/MessagesPanel.jsx';
 import routes from '../../../routes/index.js';
 
 import { addChannels, setActiveChannel } from '../../../slices/channelsSlice.js';
@@ -35,10 +35,10 @@ const MainPage = () => {
     <Container className="shadow h-100 px-0 my-4 overflow-hidden">
       <Row className="flex-row h-100 bg-white">
         <Col md="3" className="col-4 ps-4 bg-light">
-          <Channels />
+          <ChannelsPanel />
         </Col>
         <Col className="pe-3">
-          <Messages />
+          <MessagesPanel />
         </Col>
       </Row>
     </Container>
