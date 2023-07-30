@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Button, ButtonGroup, Dropdown,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeChannel, setActiveChannel } from '../../../../slices/channelsSlice';
-import socketApi from '../../../../socket';
+import { setActiveChannel } from '../../../../slices/channelsSlice';
+// import socketApi from '../../../../socket';
+import SocketApiContext from '../../../../contexts/SocketApiContext';
 
 const Channel = ({ channel }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { removeChannel } = useContext(SocketApiContext);
   const activeChannel = useSelector((state) => state.channels.activeChannel);
   const handleRemove = (channelToRemove) => {
     try {
-      socketApi.removeChannel(channelToRemove);
-      dispatch(removeChannel(channelToRemove.id));
+      removeChannel(channelToRemove);
+      // dispatch(removeChannel(channelToRemove.id));
     } catch (e) {
       console.log(e);
     }

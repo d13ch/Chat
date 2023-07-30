@@ -1,20 +1,27 @@
 import { useFormik } from 'formik';
-import React, { useEffect, useRef } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import {
   Button, ButtonGroup, Form,
 } from 'react-bootstrap';
 import { MdSend } from '@react-icons/all-files/md/MdSend.esm';
 import { useTranslation } from 'react-i18next';
-import socketApi from '../../../../socket';
+import SocketApiContext from '../../../../contexts/SocketApiContext';
 
 const MessageForm = ({ activeChannel }) => {
   const inputRef = useRef();
   const { t } = useTranslation();
+  const { sendMessage } = useContext(SocketApiContext);
+  const [isSent, setIsSent] = useState(true);
+
   const formik = useFormik({
     initialValues: {
       body: '',
     },
-    onSubmit: (values, actions) => {
+    onSubmit: (values) => {
+      setIsSent(false);
+      // console.log(isSent);
       const { username } = JSON.parse(localStorage.getItem('user'));
       const newMessage = {
         body: values.body,
@@ -22,9 +29,12 @@ const MessageForm = ({ activeChannel }) => {
         username,
       };
       try {
-        socketApi.sendMessage(newMessage);
-        values.body = '';
-        actions.setSubmitting(false);
+        sendMessage(newMessage, setIsSent);
+        if (isSent) {
+          values.body = '';
+        } else {
+          setTimeout(() => setIsSent(true), 3000);
+        }
       } catch (e) {
         console.log(e);
       }
@@ -51,7 +61,7 @@ const MessageForm = ({ activeChannel }) => {
           as={Button}
           type="submit"
           className="align-items-center"
-          disabled={formik.values.body === '' || formik.isSubmitting}
+          disabled={formik.values.body === '' || !isSent}
         >
           <MdSend />
         </ButtonGroup>

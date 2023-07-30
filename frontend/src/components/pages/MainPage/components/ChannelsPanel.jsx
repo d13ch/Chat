@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ButtonGroup, Button, Nav } from 'react-bootstrap';
 import { BsPlusSquare } from '@react-icons/all-files/bs/BsPlusSquare.esm';
 import { useTranslation } from 'react-i18next';
 import { selectors, setActiveChannel } from '../../../../slices/channelsSlice.js';
 import Channel from './Channel.jsx';
-import socketApi from '../../../../socket.js';
+// import socketApi from '../../../../socket.js';
+import SocketApiContext from '../../../../contexts/SocketApiContext.jsx';
 
 const ChannelsPanel = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const channels = useSelector(selectors.selectAll);
   // const activeChannel = useSelector((state) => state.channels.activeChannel);
+  const { addChanel } = useContext(SocketApiContext);
   const handleAddChannel = () => {
-    const newChannelId = socketApi.addChanel({ name: 'a' });
+    // console.log(socketApi);
+    const newChannelId = addChanel({ name: 'a' });
+    // console.log(newChannelId);
     if (newChannelId) {
       dispatch(setActiveChannel(newChannelId));
     }

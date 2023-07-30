@@ -1,25 +1,26 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { socket } from './socket.js';
-import MainPage from './components/Pages/MainPage/MainPage.jsx';
-import LoginPage from './components/Pages/LoginPage/LoginPage';
-import NotFoundPage from './components/Pages/NotFoundPage';
+// import { useDispatch } from 'react-redux';
+// import { socket } from './socket.js';
+import MainPage from './components/pages/MainPage/MainPage.jsx';
+import LoginPage from './components/pages/LoginPage/LoginPage.jsx';
+import NotFoundPage from './components/pages/NotFoundPage.jsx';
 import AuthProvider from './components/AuthProvider';
 import ProtectedRoute from './components/ProtectedRoute';
 import NavBar from './components/NavBar.jsx';
-import { sendMessage } from './slices/messagesSlice.js';
-import { addChannel, removeChannel, renameChannel } from './slices/channelsSlice.js';
+// import { sendMessage } from './slices/messagesSlice.js';
+// import { addChannel, removeChannel, renameChannel } from './slices/channelsSlice.js';
+import SocketApiProvider from './components/SocketApiProvider.jsx';
 
-const App = () => {
-  const dispatch = useDispatch();
-  socket.on('newMessage', (message) => dispatch(sendMessage(message)));
-  socket.on('newChannel', (channel) => dispatch(addChannel(channel)));
-  socket.on('removeChannel', ({ id }) => dispatch(removeChannel(id)));
-  socket.on('renameChannel', ({ id, name }) => dispatch(renameChannel({ id, changes: name })));
+// const dispatch = useDispatch();
+// socket.on('newMessage', (message) => dispatch(sendMessage(message)));
+// socket.on('newChannel', (channel) => dispatch(addChannel(channel)));
+// socket.on('removeChannel', ({ id }) => dispatch(removeChannel(id)));
+// socket.on('renameChannel', ({ id, name }) => dispatch(renameChannel({ id, changes: name })));
 
-  return (
-    <AuthProvider>
+const App = () => (
+  <AuthProvider>
+    <SocketApiProvider>
       <div className="d-flex flex-column h-100">
         <NavBar />
         <BrowserRouter>
@@ -37,8 +38,8 @@ const App = () => {
           </Routes>
         </BrowserRouter>
       </div>
-    </AuthProvider>
-  );
-};
+    </SocketApiProvider>
 
+  </AuthProvider>
+);
 export default App;
