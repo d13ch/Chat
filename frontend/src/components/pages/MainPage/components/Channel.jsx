@@ -22,7 +22,7 @@ const Channel = ({ channel }) => {
     channel.removable
       ? (
         <Dropdown as={ButtonGroup} className="w-100 d-flex">
-          <Button onClick={() => dispatch(setActiveChannel(channel.id))} className="text-start" active={channel.id === activeChannelId} variant="light">
+          <Button onClick={() => dispatch(setActiveChannel(channel.id))} className="text-start text-truncate" active={channel.id === activeChannelId} variant="light">
             <span># </span>
             {channel.name}
           </Button>
