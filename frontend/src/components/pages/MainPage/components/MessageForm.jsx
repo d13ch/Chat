@@ -29,12 +29,8 @@ const MessageForm = ({ activeChannel }) => {
         username,
       };
       try {
-        sendMessage(newMessage, setIsSent);
-        if (isSent) {
-          values.body = '';
-        } else {
-          setTimeout(() => setIsSent(true), 3000);
-        }
+        sendMessage(newMessage, setIsSent, values);
+        formik.setSubmitting(false);
       } catch (e) {
         console.log(e);
       }
@@ -45,9 +41,16 @@ const MessageForm = ({ activeChannel }) => {
     inputRef.current.focus();
   }, []);
 
+  useEffect(() => {
+    if (!isSent) {
+      setTimeout(() => setIsSent(true), 1000);
+    }
+  });
+
   return (
     <Form onSubmit={formik.handleSubmit}>
       <Form.Group className="input-group">
+        <Form.Label htmlFor="body" hidden>{t('mainPage.formLabel')}</Form.Label>
         <Form.Control
           name="body"
           id="body"

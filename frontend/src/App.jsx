@@ -1,15 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
-// import { socket } from './socket.js';
 import MainPage from './components/pages/MainPage/MainPage.jsx';
 import LoginPage from './components/pages/LoginPage/LoginPage.jsx';
 import NotFoundPage from './components/pages/NotFoundPage.jsx';
 import AuthProvider from './components/AuthProvider';
 import ProtectedRoute from './components/ProtectedRoute';
 import NavBar from './components/NavBar.jsx';
-// import { sendMessage } from './slices/messagesSlice.js';
-// import { addChannel, removeChannel, renameChannel } from './slices/channelsSlice.js';
 import SocketApiProvider from './components/SocketApiProvider.jsx';
 
 // const dispatch = useDispatch();

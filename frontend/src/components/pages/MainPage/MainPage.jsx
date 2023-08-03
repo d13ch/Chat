@@ -6,7 +6,7 @@ import ChannelsPanel from './components/ChannelsPanel.jsx';
 import MessagesPanel from './components/MessagesPanel.jsx';
 import routes from '../../../routes/index.js';
 
-import { addChannels, setActiveChannel } from '../../../slices/channelsSlice.js';
+import { addChannels, setActiveChannel, setDefaultChannel } from '../../../slices/channelsSlice.js';
 import { addMessages } from '../../../slices/messagesSlice.js';
 
 const MainPage = () => {
@@ -24,6 +24,7 @@ const MainPage = () => {
       });
 
       dispatch(setActiveChannel(currentChannelId));
+      dispatch(setDefaultChannel(currentChannelId));
       dispatch(addChannels(channels));
       dispatch(addMessages(messages));
     };
@@ -32,12 +33,12 @@ const MainPage = () => {
   });
 
   return (
-    <Container className="shadow h-100 px-0 my-4 overflow-hidden">
-      <Row className="flex-row h-100 bg-white">
-        <Col md="3" className="col-4 ps-4 bg-light">
+    <Container className="shadow h-100 px-1 my-4 overflow-hidden">
+      <Row className="h-100 bg-white">
+        <Col md="3" className="h-100 d-flex flex-column col-4 ps-3 pe-2 bg-light">
           <ChannelsPanel />
         </Col>
-        <Col className="pe-3">
+        <Col className="h-100 pe-3">
           <MessagesPanel />
         </Col>
       </Row>

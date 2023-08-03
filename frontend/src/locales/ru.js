@@ -24,11 +24,36 @@ const ru = {
       messagesCount_many: '{{count}} сообщений',
       messagesCount_other: '{{count}} сообщений',
       formPlaceholder: 'Введите сообщение',
+      formLabel: 'Введите сообщение',
     },
     notFoundPage: {
       notFound: 'Страница не найдена',
       backTo: 'Вернуться на',
       mainPage: 'главную',
+    },
+    modals: {
+      add: {
+        header: 'Добавить канал',
+        label: 'Название канала',
+        submitBtn: 'Добавить',
+        cancelBtn: 'Отменить',
+      },
+      remove: {
+        header: 'Удалить канал',
+        label: 'Удалить канал',
+        submitBtn: 'Удалить',
+        cancelBtn: 'Отменить',
+      },
+      rename: {
+        header: 'Переименовать канал',
+        label: 'Название канала',
+        submitBtn: 'Переименовать',
+        cancelBtn: 'Отменить',
+      },
+    },
+    errors: {
+      requiredField: 'Обязательно для ввода',
+      channelExists: 'Канал с таким именем уже существует',
     },
   },
 };

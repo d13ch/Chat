@@ -19,7 +19,10 @@ const MessagesPanel = () => {
   return (
     <div className="h-100 d-flex flex-column px-2">
       <div className="ps-4 mt-3">
-        <h4 className="m-0">{header}</h4>
+        <h4 className="m-0">
+          <span># </span>
+          {header}
+        </h4>
         <span className="text-muted">{t('mainPage.messagesCount', { count: messagesCount })}</span>
       </div>
       <hr />

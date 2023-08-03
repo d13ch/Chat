@@ -1,12 +1,10 @@
 import React from 'react';
-// import { useSelector } from 'react-redux';
 import { Stack } from 'react-bootstrap';
-// import { selectors } from '../../../../slices/messagesSlice';
 
 const MessagesBox = ({ messages }) => (
-  <Stack className="ps-4">
+  <Stack className="h-100 ps-4 overflow-auto">
     {messages.map((message) => (
-      <div key={message.id}>
+      <div className="text-break" key={message.id}>
         <b>{message.username}</b>
         :&nbsp;
         {message.body}

@@ -17,15 +17,16 @@ const SocketApiProvider = ({ children }) => {
   socket.on('renameChannel', ({ id, name }) => dispatch(renameChannel({ id, changes: name })));
 
   const socketApi = {
-    sendMessage: (message, setter) => {
+    sendMessage: (message, setter, values) => {
       socket.emit('newMessage', message, (response) => {
         const { status } = response;
         if (status === 'ok') {
           setter(true);
+          values.body = '';
         }
       });
     },
-    addChanel: (channel) => {
+    addChannel: (channel) => {
       socket.emit('newChannel', channel, (response) => {
         const { status, data } = response;
         if (status === 'ok') {
@@ -34,14 +35,10 @@ const SocketApiProvider = ({ children }) => {
       });
     },
     removeChannel: (channel) => {
-      socket.emit('removeChannel', channel, ({ status }) => {
-        if (status !== 'ok') {
-          throw new Error('Unable to remove channel');
-        }
-      });
+      socket.emit('removeChannel', channel);
     },
-    renameChannel: (channel) => {
-      socket.emit('renameChannel', channel);
+    renameChannel: (id, name) => {
+      socket.emit('renameChannel', { id, name });
     },
   };
 
