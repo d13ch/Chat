@@ -29,7 +29,9 @@ const ModalRename = ({ addedChannels, closeHandler, channelToProcess }) => {
   });
 
   useEffect(() => {
-    inputRef.current.select();
+    setTimeout(() => {
+      inputRef.current.select();
+    }, 0);
   }, []);
 
   return (

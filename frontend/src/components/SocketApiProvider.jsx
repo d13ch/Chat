@@ -14,7 +14,7 @@ const SocketApiProvider = ({ children }) => {
   socket.on('newMessage', (message) => dispatch(sendMessage(message)));
   socket.on('newChannel', (channel) => dispatch(addChannel(channel)));
   socket.on('removeChannel', ({ id }) => dispatch(removeChannel(id)));
-  socket.on('renameChannel', ({ id, name }) => dispatch(renameChannel({ id, changes: name })));
+  socket.on('renameChannel', (channel) => dispatch(renameChannel(channel)));
 
   const socketApi = {
     sendMessage: (message, setter, values) => {
