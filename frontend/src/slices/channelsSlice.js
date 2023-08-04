@@ -19,7 +19,7 @@ const channelsSlice = createSlice({
     addChannel: channelsAdapter.addOne,
     addChannels: channelsAdapter.addMany,
     removeChannel: channelsAdapter.removeOne,
-    renameChannel: channelsAdapter.updateOne,
+    renameChannel: channelsAdapter.setOne,
   },
 });
 

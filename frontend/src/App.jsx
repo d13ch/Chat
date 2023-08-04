@@ -7,6 +7,7 @@ import AuthProvider from './components/AuthProvider';
 import ProtectedRoute from './components/ProtectedRoute';
 import NavBar from './components/NavBar.jsx';
 import SocketApiProvider from './components/SocketApiProvider.jsx';
+import SignupPage from './components/pages/SignupPage/SignupPage.jsx';
 
 // const dispatch = useDispatch();
 // socket.on('newMessage', (message) => dispatch(sendMessage(message)));
@@ -30,6 +31,7 @@ const App = () => (
           )}
             />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>

@@ -12,7 +12,7 @@ const NavBar = () => {
   return (
     <Navbar className="shadow" bg="dark" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand href="/">MyChat</Navbar.Brand>
+        <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
         <Button onClick={logOut} hidden={!loggedIn}>{t('navbar.exitBtn')}</Button>
       </Container>
     </Navbar>

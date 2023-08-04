@@ -11,6 +11,15 @@ const ru = {
       passwordPlaceholder: 'Введите пароль',
       enterBtn: 'Войти',
       wrongInputFeedback: 'Неправильное имя пользователя и/или пароль',
+      footerText: 'Нет аккаунта?',
+      signup: 'Регистрация',
+    },
+    signupPage: {
+      header: 'Регистрация',
+      username: 'Имя пользователя',
+      password: 'Пароль',
+      passwordConfirmation: 'Подтвердите пароль',
+      submitBtn: 'Зарегистрироваться',
     },
     mainPage: {
       channelsHeader: 'Каналы',
@@ -54,6 +63,10 @@ const ru = {
     errors: {
       requiredField: 'Обязательно для ввода',
       channelExists: 'Канал с таким именем уже существует',
+      usernameLength: 'От 3 до 20 символов',
+      passwordLength: 'Не менее 6 символов',
+      passwordConfirmation: 'Пароли должны совпадать',
+      userExists: 'Такой пользователь уже существует',
     },
   },
 };
