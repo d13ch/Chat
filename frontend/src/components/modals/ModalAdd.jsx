@@ -1,14 +1,18 @@
 import { useFormik } from 'formik';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import * as Yup from 'yup';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import SocketApiContext from '../../contexts/SocketApiContext';
+import notify from '../notifications/notify';
 
 const ModalAdd = ({ addedChannels, closeHandler }) => {
   const { t } = useTranslation();
   const { addChannel } = useContext(SocketApiContext);
   const inputRef = useRef();
+  const [isAdded, setIsAdded] = useState();
 
   const validationSchema = Yup.object().shape({
     channelName: Yup
@@ -23,14 +27,23 @@ const ModalAdd = ({ addedChannels, closeHandler }) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      addChannel({ name: values.channelName });
-      closeHandler();
+      addChannel({ name: values.channelName }, setIsAdded);
     },
   });
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
+  useEffect(() => {
+    if (isAdded === false) {
+      notify('error', t('toasts.networkError'));
+    }
+    if (isAdded) {
+      notify('success', t('toasts.channelAdded'));
+      closeHandler();
+    }
+  }, [isAdded]);
 
   return (
     <>
@@ -59,8 +72,12 @@ const ModalAdd = ({ addedChannels, closeHandler }) => {
             </Form.Control.Feedback>
           </Form.Group>
           <div className="d-flex mt-3 justify-content-end">
-            <Button onClick={closeHandler} className="me-3" variant="secondary">{t('modals.add.cancelBtn')}</Button>
-            <Button type="submit">{t('modals.add.submitBtn')}</Button>
+            <Button onClick={closeHandler} className="me-3" variant="secondary">
+              {t('modals.add.cancelBtn')}
+            </Button>
+            <Button type="submit" disabled={formik.values.channelName === '' || isAdded === false}>
+              {t('modals.add.submitBtn')}
+            </Button>
           </div>
         </Form>
       </Modal.Body>

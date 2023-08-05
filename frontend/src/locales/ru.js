@@ -68,6 +68,12 @@ const ru = {
       passwordConfirmation: 'Пароли должны совпадать',
       userExists: 'Такой пользователь уже существует',
     },
+    toasts: {
+      channelAdded: 'Канал создан',
+      channelRemoved: 'Канал удалён',
+      channelRenamed: 'Канал преименован',
+      networkError: 'Ошибка сети',
+    },
   },
 };
 

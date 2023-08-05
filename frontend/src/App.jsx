@@ -1,5 +1,7 @@
+import 'react-toastify/dist/ReactToastify.css';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Slide, ToastContainer } from 'react-toastify';
 import MainPage from './components/pages/MainPage/MainPage.jsx';
 import LoginPage from './components/pages/LoginPage/LoginPage.jsx';
 import NotFoundPage from './components/pages/NotFoundPage.jsx';
@@ -36,8 +38,8 @@ const App = () => (
           </Routes>
         </BrowserRouter>
       </div>
+      <ToastContainer transition={Slide} />
     </SocketApiProvider>
-
   </AuthProvider>
 );
 export default App;

@@ -2,31 +2,38 @@ import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import ChannelsPanel from './components/ChannelsPanel.jsx';
 import MessagesPanel from './components/MessagesPanel.jsx';
 import routes from '../../../routes/index.js';
-
 import { addChannels, setActiveChannel, setDefaultChannel } from '../../../slices/channelsSlice.js';
 import { addMessages } from '../../../slices/messagesSlice.js';
+import notify from '../../notifications/notify.js';
 
 const MainPage = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getChannels = async () => {
-      const { token } = JSON.parse(localStorage.getItem('user'));
-      const {
-        data: { channels, messages, currentChannelId },
-      } = await axios.get(routes.dataPath(), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      try {
+        const { token } = JSON.parse(localStorage.getItem('user'));
+        const {
+          data: { channels, messages, currentChannelId },
+        } = await axios.get(routes.dataPath(), {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      dispatch(setActiveChannel(currentChannelId));
-      dispatch(setDefaultChannel(currentChannelId));
-      dispatch(addChannels(channels));
-      dispatch(addMessages(messages));
+        dispatch(setActiveChannel(currentChannelId));
+        dispatch(setDefaultChannel(currentChannelId));
+        dispatch(addChannels(channels));
+        dispatch(addMessages(messages));
+      } catch (error) {
+        notify('error', t('toasts.networkError'));
+        console.log(error);
+      }
     };
 
     getChannels();

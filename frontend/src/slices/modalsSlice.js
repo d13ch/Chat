@@ -20,6 +20,7 @@ const modalsSlice = createSlice({
     closeModal: (state) => {
       state.isOpen = false;
       state.activeModalType = null;
+      state.channelToProcess = null;
     },
   },
 });

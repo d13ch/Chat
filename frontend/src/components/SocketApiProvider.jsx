@@ -17,28 +17,62 @@ const SocketApiProvider = ({ children }) => {
   socket.on('renameChannel', (channel) => dispatch(renameChannel(channel)));
 
   const socketApi = {
-    sendMessage: (message, setter, values) => {
-      socket.emit('newMessage', message, (response) => {
-        const { status } = response;
-        if (status === 'ok') {
-          setter(true);
-          values.body = '';
+    sendMessage: (message, setter) => {
+      socket.timeout(1000).emit('newMessage', message, (error, response) => {
+        if (error) {
+          setter(false);
+          setTimeout(() => setter(undefined), 2000);
+          console.log(error);
+        } else {
+          const { status } = response;
+          if (status === 'ok') {
+            setter(true);
+          }
         }
       });
     },
-    addChannel: (channel) => {
-      socket.emit('newChannel', channel, (response) => {
-        const { status, data } = response;
-        if (status === 'ok') {
-          dispatch(setActiveChannel(data.id));
+    addChannel: (channel, setter) => {
+      socket.timeout(2000).emit('newChannel', channel, (error, response) => {
+        if (error) {
+          setter(false);
+          setTimeout(() => setter(undefined), 2000);
+          console.log(error);
+        } else {
+          const { status, data } = response;
+          if (status === 'ok') {
+            dispatch(setActiveChannel(data.id));
+            setter(true);
+          }
         }
       });
     },
-    removeChannel: (channel) => {
-      socket.emit('removeChannel', channel);
+    removeChannel: (channel, setter) => {
+      socket.timeout(2000).emit('removeChannel', channel, (error, response) => {
+        if (error) {
+          setter(false);
+          setTimeout(() => setter(undefined), 2000);
+          console.log(error);
+        } else {
+          const { status } = response;
+          if (status === 'ok') {
+            setter(true);
+          }
+        }
+      });
     },
-    renameChannel: (id, name) => {
-      socket.emit('renameChannel', { id, name });
+    renameChannel: (id, name, setter) => {
+      socket.timeout(2000).emit('renameChannel', { id, name }, (error, response) => {
+        if (error) {
+          setter(false);
+          setTimeout(() => setter(undefined), 2000);
+          console.log(error);
+        } else {
+          const { status } = response;
+          if (status === 'ok') {
+            setter(true);
+          }
+        }
+      });
     },
   };
 

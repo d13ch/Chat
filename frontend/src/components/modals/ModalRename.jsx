@@ -1,14 +1,18 @@
 import { useFormik } from 'formik';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { Button, Form, Modal } from 'react-bootstrap';
 import SocketApiContext from '../../contexts/SocketApiContext';
+import notify from '../notifications/notify';
 
 const ModalRename = ({ addedChannels, closeHandler, channelToProcess }) => {
   const { t } = useTranslation();
   const { renameChannel } = useContext(SocketApiContext);
   const inputRef = useRef();
+  const [isRenamed, setIsRenamed] = useState();
 
   const validationSchema = Yup.object().shape({
     channelName: Yup
@@ -23,10 +27,19 @@ const ModalRename = ({ addedChannels, closeHandler, channelToProcess }) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      renameChannel(channelToProcess.id, values.channelName);
-      closeHandler();
+      renameChannel(channelToProcess.id, values.channelName, setIsRenamed);
     },
   });
+
+  useEffect(() => {
+    if (isRenamed === false) {
+      notify('error', t('toasts.networkError'));
+    }
+    if (isRenamed) {
+      notify('success', t('toasts.channelRenamed'));
+      closeHandler();
+    }
+  }, [isRenamed]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -61,8 +74,12 @@ const ModalRename = ({ addedChannels, closeHandler, channelToProcess }) => {
             </Form.Control.Feedback>
           </Form.Group>
           <div className="d-flex mt-3 justify-content-end">
-            <Button onClick={closeHandler} className="me-3" variant="secondary">{t('modals.rename.cancelBtn')}</Button>
-            <Button type="submit">{t('modals.rename.submitBtn')}</Button>
+            <Button onClick={closeHandler} className="me-3" variant="secondary">
+              {t('modals.rename.cancelBtn')}
+            </Button>
+            <Button type="submit" disabled={formik.values.channelName === '' || isRenamed === false}>
+              {t('modals.rename.submitBtn')}
+            </Button>
           </div>
         </Form>
       </Modal.Body>
