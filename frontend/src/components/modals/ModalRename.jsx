@@ -5,6 +5,7 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { Button, Form, Modal } from 'react-bootstrap';
+import filter from 'leo-profanity';
 import SocketApiContext from '../../contexts/SocketApiContext';
 import notify from '../notifications/notify';
 
@@ -27,7 +28,8 @@ const ModalRename = ({ addedChannels, closeHandler, channelToProcess }) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      renameChannel(channelToProcess.id, values.channelName, setIsRenamed);
+      const cleanedName = filter.clean(values.channelName);
+      renameChannel(channelToProcess.id, cleanedName, setIsRenamed);
     },
   });
 

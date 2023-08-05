@@ -7,6 +7,7 @@ import {
 } from 'react-bootstrap';
 import { MdSend } from '@react-icons/all-files/md/MdSend.esm';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import SocketApiContext from '../../../../contexts/SocketApiContext';
 import notify from '../../../notifications/notify';
 
@@ -23,7 +24,7 @@ const MessageForm = ({ activeChannel }) => {
     onSubmit: (values) => {
       const { username } = JSON.parse(localStorage.getItem('user'));
       const newMessage = {
-        body: values.body,
+        body: filter.clean(values.body),
         channelId: activeChannel,
         username,
       };

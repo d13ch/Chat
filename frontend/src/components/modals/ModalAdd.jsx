@@ -5,6 +5,7 @@ import React, {
 import * as Yup from 'yup';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import SocketApiContext from '../../contexts/SocketApiContext';
 import notify from '../notifications/notify';
 
@@ -27,7 +28,8 @@ const ModalAdd = ({ addedChannels, closeHandler }) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      addChannel({ name: values.channelName }, setIsAdded);
+      const cleanedName = filter.clean(values.channelName);
+      addChannel({ name: cleanedName }, setIsAdded);
     },
   });
 
