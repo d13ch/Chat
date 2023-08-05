@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import routes from '../../../../routes/index.js';
 import AuthContext from '../../../../contexts/AuthContext.jsx';
+import notify from '../../../notifications/notify.js';
 
 const LoginForm = () => {
   const { logIn } = useContext(AuthContext);
@@ -36,10 +37,14 @@ const LoginForm = () => {
           logIn(data);
           navigate('/');
         } catch (error) {
+          console.log(error);
+          if (error.message === 'Network Error') {
+            notify('error', t('toasts.networkError'));
+          }
           if (error.isAxiosError && error.response.status === 401) {
             setAuthFailed(true);
           } else {
-            throw error;
+            notify('error', t('toasts.unknownError'));
           }
         }
       }}

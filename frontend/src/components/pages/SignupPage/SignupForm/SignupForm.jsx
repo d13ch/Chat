@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../../../routes';
 import AuthContext from '../../../../contexts/AuthContext';
+import notify from '../../../notifications/notify';
 
 const SignupForm = () => {
   const { t } = useTranslation();
@@ -51,10 +52,14 @@ const SignupForm = () => {
         logIn(data);
         navigate('/');
       } catch (error) {
+        console.log(error);
+        if (error.message === 'Network Error') {
+          notify('error', t('toasts.networkError'));
+        }
         if (error.isAxiosError && error.response.status === 409) {
           setSignupFailed(true);
         } else {
-          throw error;
+          notify('error', t('toasts.unknownError'));
         }
       }
     },

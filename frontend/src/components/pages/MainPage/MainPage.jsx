@@ -31,8 +31,12 @@ const MainPage = () => {
         dispatch(addChannels(channels));
         dispatch(addMessages(messages));
       } catch (error) {
-        notify('error', t('toasts.networkError'));
         console.log(error);
+        if (error.message === 'Network Error') {
+          notify('error', t('toasts.networkError'));
+        } else {
+          notify('error', t('toasts.unknownError'));
+        }
       }
     };
 

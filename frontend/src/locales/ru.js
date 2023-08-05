@@ -73,6 +73,7 @@ const ru = {
       channelRemoved: 'Канал удалён',
       channelRenamed: 'Канал преименован',
       networkError: 'Ошибка сети',
+      unknownError: 'Неизвестная ошибка',
     },
   },
 };
