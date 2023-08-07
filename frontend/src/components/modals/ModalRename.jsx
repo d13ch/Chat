@@ -18,6 +18,8 @@ const ModalRename = ({ addedChannels, closeHandler, channelToProcess }) => {
   const validationSchema = Yup.object().shape({
     channelName: Yup
       .string()
+      .min(3, t('errors.nameLength'))
+      .max(20, t('errors.nameLength'))
       .notOneOf(addedChannels, t('errors.channelExists'))
       .required(t('errors.requiredField')),
   });

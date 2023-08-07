@@ -59,6 +59,7 @@ const MessageForm = ({ activeChannel }) => {
           value={formik.values.body}
           placeholder={t('mainPage.formPlaceholder')}
           ref={inputRef}
+          className="rounded-start"
         />
         <ButtonGroup
           as={Button}
@@ -67,6 +68,7 @@ const MessageForm = ({ activeChannel }) => {
           disabled={formik.values.body === '' || isSent === false}
         >
           <MdSend />
+          <span className="visually-hidden">{t('mainPage.send')}</span>
         </ButtonGroup>
       </Form.Group>
     </Form>

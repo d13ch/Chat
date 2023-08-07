@@ -32,7 +32,7 @@ const SocketApiProvider = ({ children }) => {
       });
     },
     addChannel: (channel, setter) => {
-      socket.timeout(2000).emit('newChannel', channel, (error, response) => {
+      socket.timeout(1000).emit('newChannel', channel, (error, response) => {
         if (error) {
           setter(false);
           setTimeout(() => setter(undefined), 2000);
@@ -47,7 +47,7 @@ const SocketApiProvider = ({ children }) => {
       });
     },
     removeChannel: (channel, setter) => {
-      socket.timeout(2000).emit('removeChannel', channel, (error, response) => {
+      socket.timeout(1000).emit('removeChannel', channel, (error, response) => {
         if (error) {
           setter(false);
           setTimeout(() => setter(undefined), 2000);
@@ -61,7 +61,7 @@ const SocketApiProvider = ({ children }) => {
       });
     },
     renameChannel: (id, name, setter) => {
-      socket.timeout(2000).emit('renameChannel', { id, name }, (error, response) => {
+      socket.timeout(1000).emit('renameChannel', { id, name }, (error, response) => {
         if (error) {
           setter(false);
           setTimeout(() => setter(undefined), 2000);

@@ -18,15 +18,22 @@ const Channel = ({ channel }) => {
     dispatch(showModal({ type: 'rename', channel: channelToRename }));
   };
 
+  const color = channel.id === activeChannelId ? 'primary' : 'light';
+
   return (
     channel.removable
       ? (
         <Dropdown as={ButtonGroup} className="w-100 d-flex">
-          <Button onClick={() => dispatch(setActiveChannel(channel.id))} className="text-start text-truncate" active={channel.id === activeChannelId} variant="light">
+          <Button
+            onClick={() => dispatch(setActiveChannel(channel.id))}
+            className="text-start text-truncate"
+            active={channel.id === activeChannelId}
+            variant={color}
+          >
             <span># </span>
             {channel.name}
           </Button>
-          <Dropdown.Toggle className="flex-grow-0" split variant="light" active={channel.id === activeChannelId} />
+          <Dropdown.Toggle className="flex-grow-0" split variant={color} active={channel.id === activeChannelId} />
           <Dropdown.Menu>
             <Dropdown.Item as={Button} onClick={() => handleRemoveChannel(channel)}>
               {t('mainPage.channelDropdown.remove')}
@@ -42,7 +49,7 @@ const Channel = ({ channel }) => {
           onClick={() => dispatch(setActiveChannel(channel.id))}
           className="w-100 text-start"
           active={channel.id === activeChannelId}
-          variant="light"
+          variant={color}
         >
           <span># </span>
           {channel.name}

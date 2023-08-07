@@ -21,8 +21,8 @@ const SignupForm = () => {
   const validationSchema = Yup.object().shape({
     username: Yup
       .string()
-      .min(3, t('errors.usernameLength'))
-      .max(20, t('errors.usernameLength'))
+      .min(3, t('errors.nameLength'))
+      .max(20, t('errors.nameLength'))
       .required(t('errors.requiredField')),
     password: Yup
       .string()
