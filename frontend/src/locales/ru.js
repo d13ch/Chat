@@ -24,6 +24,7 @@ const ru = {
     mainPage: {
       channelsHeader: 'Каналы',
       channelDropdown: {
+        label: 'Управление каналом',
         remove: 'Удалить',
         rename: 'Переименовать',
       },
@@ -34,6 +35,7 @@ const ru = {
       messagesCount_other: '{{count}} сообщений',
       formPlaceholder: 'Введите сообщение',
       formLabel: 'Введите сообщение',
+      ariaLabel: 'Новое сообщение',
       send: 'Отправить',
     },
     notFoundPage: {
@@ -44,7 +46,7 @@ const ru = {
     modals: {
       add: {
         header: 'Добавить канал',
-        label: 'Название канала',
+        label: 'Имя канала',
         submitBtn: 'Добавить',
         cancelBtn: 'Отменить',
       },
@@ -56,7 +58,7 @@ const ru = {
       },
       rename: {
         header: 'Переименовать канал',
-        label: 'Название канала',
+        label: 'Имя канала',
         submitBtn: 'Переименовать',
         cancelBtn: 'Отменить',
       },

@@ -33,7 +33,9 @@ const Channel = ({ channel }) => {
             <span># </span>
             {channel.name}
           </Button>
-          <Dropdown.Toggle className="flex-grow-0" split variant={color} active={channel.id === activeChannelId} />
+          <Dropdown.Toggle className="flex-grow-0" split variant={color} active={channel.id === activeChannelId}>
+            <span className="visually-hidden">{t('mainPage.channelDropdown.label')}</span>
+          </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item as={Button} onClick={() => handleRemoveChannel(channel)}>
               {t('mainPage.channelDropdown.remove')}

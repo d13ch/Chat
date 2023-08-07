@@ -53,6 +53,7 @@ const MessageForm = ({ activeChannel }) => {
         <Form.Label htmlFor="body" hidden>{t('mainPage.formLabel')}</Form.Label>
         <Form.Control
           name="body"
+          aria-label={t('mainPage.ariaLabel')}
           id="body"
           type="text"
           onChange={formik.handleChange}
