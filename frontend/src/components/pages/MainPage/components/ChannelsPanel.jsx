@@ -25,6 +25,7 @@ const ChannelsPanel = () => {
         </b>
         <ButtonGroup as={Button} onClick={handleAddChannel} className="text-primary fs-4 p-1" variant="light">
           <BsPlusSquare />
+          <span className="visually-hidden">+</span>
         </ButtonGroup>
       </div>
       <hr />
