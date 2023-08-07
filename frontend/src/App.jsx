@@ -40,7 +40,7 @@ const App = () => {
   filter.add(ruDict);
 
   const rollbarConfig = {
-    accessToken: 'fe7a6539c9eb49c3b0a34988b3733c70',
+    accessToken: process.env.POST_CLIENT_ITEM_ACCESS_TOKEN,
     environment: 'testenv',
   };
 
