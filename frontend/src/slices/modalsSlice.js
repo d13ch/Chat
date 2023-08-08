@@ -8,9 +8,6 @@ const modalsSlice = createSlice({
     channelToProcess: null,
   },
   reducers: {
-    // setActiveModalType: (state, { payload }) => {
-    //   state.activeModalType = payload;
-    // },
     showModal: (state, { payload }) => {
       const { type, channel } = payload;
       state.isOpen = true;

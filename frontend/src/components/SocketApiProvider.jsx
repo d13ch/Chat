@@ -76,7 +76,12 @@ const SocketApiProvider = ({ children }) => {
     }, []),
   };
 
-  const contextData = useMemo(() => socketApi, [socketApi]);
+  const contextData = useMemo(() => socketApi, [
+    socketApi.sendMessage,
+    socketApi.addChannel,
+    socketApi.removeChannel,
+    socketApi.renameChannel,
+  ]);
 
   return (
     <SocketApiContext.Provider value={contextData}>
