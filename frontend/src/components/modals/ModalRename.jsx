@@ -61,7 +61,7 @@ const ModalRename = ({ addedChannels, closeHandler, channelToProcess }) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <Form.Label htmlFor="channelName" hidden>
+            <Form.Label htmlFor="channelName" className="visually-hidden">
               {t('modals.rename.label')}
             </Form.Label>
             <Form.Control
