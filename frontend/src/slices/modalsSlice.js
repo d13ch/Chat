@@ -1,3 +1,4 @@
+/*eslint no-param-reassign: ["error", { "props": false }]*/
 import { createSlice } from '@reduxjs/toolkit';
 
 const modalsSlice = createSlice({
