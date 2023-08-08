@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { sendMessage } from '../slices/messagesSlice';
 import {
   addChannel, removeChannel, renameChannel, setActiveChannel,
@@ -17,7 +17,7 @@ const SocketApiProvider = ({ children }) => {
   socket.on('renameChannel', (channel) => dispatch(renameChannel(channel)));
 
   const socketApi = {
-    sendMessage: (message, setter) => {
+    sendMessage: useCallback((message, setter) => {
       socket.timeout(1000).emit('newMessage', message, (error, response) => {
         if (error) {
           setter(false);
@@ -30,8 +30,8 @@ const SocketApiProvider = ({ children }) => {
           }
         }
       });
-    },
-    addChannel: (channel, setter) => {
+    }, []),
+    addChannel: useCallback((channel, setter) => {
       socket.timeout(1000).emit('newChannel', channel, (error, response) => {
         if (error) {
           setter(false);
@@ -45,8 +45,8 @@ const SocketApiProvider = ({ children }) => {
           }
         }
       });
-    },
-    removeChannel: (channel, setter) => {
+    }, []),
+    removeChannel: useCallback((channel, setter) => {
       socket.timeout(1000).emit('removeChannel', channel, (error, response) => {
         if (error) {
           setter(false);
@@ -59,8 +59,8 @@ const SocketApiProvider = ({ children }) => {
           }
         }
       });
-    },
-    renameChannel: (id, name, setter) => {
+    }, []),
+    renameChannel: useCallback((id, name, setter) => {
       socket.timeout(1000).emit('renameChannel', { id, name }, (error, response) => {
         if (error) {
           setter(false);
@@ -73,7 +73,7 @@ const SocketApiProvider = ({ children }) => {
           }
         }
       });
-    },
+    }, []),
   };
 
   const contextData = useMemo(() => socketApi, [socketApi]);

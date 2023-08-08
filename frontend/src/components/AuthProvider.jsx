@@ -1,17 +1,17 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import AuthContext from '../contexts/AuthContext';
 
-function AuthProvider({ children }) {
+const AuthProvider = ({ children }) => {
   const savedUser = JSON.parse(localStorage.getItem('user'));
   const [loggedIn, setLoggedIn] = useState(!!savedUser);
-  const logIn = (userData) => {
+  const logIn = useCallback((userData) => {
     localStorage.setItem('user', JSON.stringify(userData));
     setLoggedIn(true);
-  };
-  const logOut = () => {
+  }, []);
+  const logOut = useCallback(() => {
     localStorage.removeItem('user');
     setLoggedIn(false);
-  };
+  }, []);
 
   const contextData = useMemo(
     () => ({ loggedIn, logIn, logOut }),
@@ -23,6 +23,6 @@ function AuthProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export default AuthProvider;
