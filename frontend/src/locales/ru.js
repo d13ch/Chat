@@ -74,7 +74,7 @@ const ru = {
     toasts: {
       channelAdded: 'Канал создан',
       channelRemoved: 'Канал удалён',
-      channelRenamed: 'Канал преименован',
+      channelRenamed: 'Канал переименован',
       networkError: 'Ошибка соедиения',
       unknownError: 'Неизвестная ошибка',
     },
