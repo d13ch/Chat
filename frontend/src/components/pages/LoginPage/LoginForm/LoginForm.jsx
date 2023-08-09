@@ -49,7 +49,7 @@ const LoginForm = () => {
   });
 
   return (
-    <Form onSubmit={formik.handleSubmit}>
+    <Form onSubmit={formik.handleSubmit} className="col col-xxl-10">
       <Form.Group className="mt-3">
         <Form.Label htmlFor="username" className="ms-2 fw-semibold">{t('loginPage.username')}</Form.Label>
         <Form.Control

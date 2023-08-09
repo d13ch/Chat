@@ -11,9 +11,9 @@ const LoginPage = () => {
   return (
     <Container className="h-100" fluid>
       <Row className="justify-content-center align-content-center h-100">
-        <Col className="col-10" md="6" xxl="6">
+        <Col className="col-10" sm="8" md="6" xl="5">
           <Card className="my-5 shadow">
-            <Card.Body className="row pb-4 p-5">
+            <Card.Body className="row pb-4 p-5 justify-content-center">
               <h1 className="text-center">{t('loginPage.header')}</h1>
               <LoginForm />
             </Card.Body>

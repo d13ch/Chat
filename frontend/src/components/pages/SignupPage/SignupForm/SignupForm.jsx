@@ -78,7 +78,7 @@ const SignupForm = () => {
   }, [formik.isValidating]);
 
   return (
-    <Form onSubmit={formik.handleSubmit}>
+    <Form onSubmit={formik.handleSubmit} className="col col-xxl-10">
       <Form.Group className="mt-3">
         <Form.Label className="ms-2 fw-semibold" htmlFor="username">
           {t('signupPage.username')}

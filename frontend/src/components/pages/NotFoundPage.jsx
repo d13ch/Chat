@@ -9,15 +9,15 @@ const NotFoundPage = () => {
   return (
     <Container className="h-100" fluid>
       <Row className="h-100 justify-content-center align-items-center">
-        <Col md="6" xxl="6">
-          <Card className="my-5 py-5 h-100 shadow justify-items-center align-items-center">
+        <Col sm="8" md="6" xl="5" xxl="4">
+          <Card className="py-5 h-100 shadow justify-items-center align-items-center">
             <Card.Body>
-              <Card.Title className="text-center">
+              <Card.Title className="pt-3 text-center">
                 <h1>404</h1>
               </Card.Title>
               <h2>{t('notFoundPage.notFound')}</h2>
               <hr />
-              <Card.Text className="text-center">
+              <Card.Text className="pb-3 text-center">
                 {t('notFoundPage.backTo')}
                 {' '}
                 <a href="/">{t('notFoundPage.mainPage')}</a>

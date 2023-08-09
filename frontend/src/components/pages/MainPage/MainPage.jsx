@@ -46,7 +46,7 @@ const MainPage = () => {
   return (
     <Container className="shadow h-100 px-1 my-4 overflow-hidden">
       <Row className="h-100 bg-white">
-        <Col md="3" className="h-100 d-flex flex-column col-4 ps-3 pe-2 bg-light">
+        <Col md="3" xxl="2" className="h-100 d-flex flex-column col-4 ps-3 pe-2 bg-light">
           <ChannelsPanel />
         </Col>
         <Col className="h-100 pe-3">
