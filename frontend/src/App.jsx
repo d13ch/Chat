@@ -16,12 +16,6 @@ import NavBar from './components/NavBar.jsx';
 import SocketApiProvider from './components/SocketApiProvider.jsx';
 import SignupPage from './components/pages/SignupPage/SignupPage.jsx';
 
-// const dispatch = useDispatch();
-// socket.on('newMessage', (message) => dispatch(sendMessage(message)));
-// socket.on('newChannel', (channel) => dispatch(addChannel(channel)));
-// socket.on('removeChannel', ({ id }) => dispatch(removeChannel(id)));
-// socket.on('renameChannel', ({ id, name }) => dispatch(renameChannel({ id, changes: name })));
-
 const App = () => {
   const i18n = i18next.createInstance();
   const options = {
@@ -75,4 +69,5 @@ const App = () => {
 
   );
 };
+
 export default App;
