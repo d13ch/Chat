@@ -1,17 +1,18 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import AuthContext from '../contexts/AuthContext';
+import React, { useMemo, useState } from 'react';
+import AuthContext from '../../contexts/AuthContext';
 
 const AuthProvider = ({ children }) => {
   const savedUser = JSON.parse(localStorage.getItem('user'));
   const [loggedIn, setLoggedIn] = useState(!!savedUser);
-  const logIn = useCallback((userData) => {
+
+  const logIn = (userData) => {
     localStorage.setItem('user', JSON.stringify(userData));
     setLoggedIn(true);
-  }, []);
-  const logOut = useCallback(() => {
+  };
+  const logOut = () => {
     localStorage.removeItem('user');
     setLoggedIn(false);
-  }, []);
+  };
 
   const contextData = useMemo(
     () => ({ loggedIn, logIn, logOut }),

@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
-import React, { useCallback, useMemo } from 'react';
-import { sendMessage } from '../slices/messagesSlice';
+import React, { useMemo } from 'react';
+import { sendMessage } from '../../slices/messagesSlice';
 import {
   addChannel, removeChannel, renameChannel, setActiveChannel,
-} from '../slices/channelsSlice';
-import SocketApiContext from '../contexts/SocketApiContext';
+} from '../../slices/channelsSlice';
+import SocketApiContext from '../../contexts/SocketApiContext';
 
 const SocketApiProvider = ({ children }) => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const SocketApiProvider = ({ children }) => {
   socket.on('renameChannel', (channel) => dispatch(renameChannel(channel)));
 
   const socketApi = {
-    sendMessage: useCallback((message, setter) => {
+    sendMessage: (message, setter) => {
       socket.timeout(1000).emit('newMessage', message, (error, response) => {
         if (error) {
           setter(false);
@@ -30,8 +30,8 @@ const SocketApiProvider = ({ children }) => {
           }
         }
       });
-    }, []),
-    addChannel: useCallback((channel, setter) => {
+    },
+    addChannel: (channel, setter) => {
       socket.timeout(1000).emit('newChannel', channel, (error, response) => {
         if (error) {
           setter(false);
@@ -45,8 +45,8 @@ const SocketApiProvider = ({ children }) => {
           }
         }
       });
-    }, []),
-    removeChannel: useCallback((channel, setter) => {
+    },
+    removeChannel: (channel, setter) => {
       socket.timeout(1000).emit('removeChannel', channel, (error, response) => {
         if (error) {
           setter(false);
@@ -59,8 +59,8 @@ const SocketApiProvider = ({ children }) => {
           }
         }
       });
-    }, []),
-    renameChannel: useCallback((id, name, setter) => {
+    },
+    renameChannel: (id, name, setter) => {
       socket.timeout(1000).emit('renameChannel', { id, name }, (error, response) => {
         if (error) {
           setter(false);
@@ -73,7 +73,7 @@ const SocketApiProvider = ({ children }) => {
           }
         }
       });
-    }, []),
+    },
   };
 
   const contextData = useMemo(() => socketApi, [

@@ -10,10 +10,10 @@ import resources from './locales/index.js';
 import MainPage from './components/pages/MainPage/MainPage.jsx';
 import LoginPage from './components/pages/LoginPage/LoginPage.jsx';
 import NotFoundPage from './components/pages/NotFoundPage.jsx';
-import AuthProvider from './components/AuthProvider';
+import AuthProvider from './components/providers/AuthProvider.jsx';
 import ProtectedRoute from './components/ProtectedRoute';
 import NavBar from './components/NavBar.jsx';
-import SocketApiProvider from './components/SocketApiProvider.jsx';
+import SocketApiProvider from './components/providers/SocketApiProvider.jsx';
 import SignupPage from './components/pages/SignupPage/SignupPage.jsx';
 
 const App = () => {
