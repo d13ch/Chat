@@ -5,7 +5,6 @@ import { BsPlusSquare } from '@react-icons/all-files/bs/BsPlusSquare.esm';
 import { useTranslation } from 'react-i18next';
 import { selectors } from '../../../../slices/channelsSlice.js';
 import Channel from './Channel.jsx';
-import ModalBase from '../../../modals/ModalBase.jsx';
 import { showModal } from '../../../../slices/modalsSlice.js';
 
 const ChannelsPanel = () => {
@@ -18,7 +17,6 @@ const ChannelsPanel = () => {
 
   return (
     <>
-      <ModalBase />
       <div className="ps-3 mt-4 mb-2 d-flex justify-content-between align-items-center">
         <b>
           {t('mainPage.channelsHeader')}

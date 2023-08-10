@@ -15,6 +15,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import NavBar from './components/NavBar.jsx';
 import SocketApiProvider from './components/providers/SocketApiProvider.jsx';
 import SignupPage from './components/pages/SignupPage/SignupPage.jsx';
+import ModalBase from './components/modals/ModalBase.jsx';
 
 const App = () => {
   const i18n = i18next.createInstance();
@@ -44,6 +45,7 @@ const App = () => {
         <AuthProvider>
           <SocketApiProvider>
             <div className="d-flex flex-column h-100">
+              <ModalBase />
               <NavBar />
               <BrowserRouter>
                 <Routes>
