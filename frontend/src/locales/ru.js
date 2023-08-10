@@ -39,6 +39,7 @@ const ru = {
       send: 'Отправить',
     },
     notFoundPage: {
+      404: '404',
       notFound: 'Страница не найдена',
       backTo: 'Вернуться на',
       mainPage: 'главную',
@@ -76,6 +77,7 @@ const ru = {
       channelRemoved: 'Канал удалён',
       channelRenamed: 'Канал переименован',
       networkError: 'Ошибка соедиения',
+      authRequired: 'Необходимо выполнить вход',
       unknownError: 'Неизвестная ошибка',
     },
   },

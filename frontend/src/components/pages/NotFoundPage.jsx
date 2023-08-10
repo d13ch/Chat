@@ -13,7 +13,7 @@ const NotFoundPage = () => {
           <Card className="py-5 h-100 shadow justify-items-center align-items-center">
             <Card.Body>
               <Card.Title className="pt-3 text-center">
-                <h1>404</h1>
+                <h1>{t('notFoundPage.404')}</h1>
               </Card.Title>
               <h2>{t('notFoundPage.notFound')}</h2>
               <hr />
