@@ -77,8 +77,8 @@ const LoginForm = () => {
         />
         <Form.Control.Feedback className="ps-2" type="invalid">{t('loginPage.wrongInputFeedback')}</Form.Control.Feedback>
       </Form.Group>
-      <div className="d-flex justify-content-end">
-        <Button className="col-4 mt-4" variant="primary" type="submit">
+      <div className="d-flex justify-content-center">
+        <Button className="mt-5 w-100" variant="primary" type="submit">
           {t('loginPage.enterBtn')}
         </Button>
       </div>

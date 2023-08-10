@@ -133,8 +133,8 @@ const SignupForm = () => {
           {formik.errors.passwordConfirmation}
         </Form.Control.Feedback>
       </Form.Group>
-      <div className="d-flex mt-4 pt-1 justify-content-end">
-        <Button type="submit">{t('signupPage.submitBtn')}</Button>
+      <div className="d-flex mt-4 pt-1 justify-content-center">
+        <Button type="submit" className="mt-4 w-100">{t('signupPage.submitBtn')}</Button>
       </div>
     </Form>
   );
