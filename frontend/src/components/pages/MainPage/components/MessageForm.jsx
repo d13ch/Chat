@@ -35,7 +35,7 @@ const MessageForm = ({ activeChannel }) => {
 
   useEffect(() => {
     inputRef.current.focus();
-  }, []);
+  }, [activeChannel]);
 
   useEffect(() => {
     if (isSent === false) {
