@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import React, {
-  useContext, useEffect, useRef, useState,
+  useContext, useEffect, useRef,
 } from 'react';
 import * as Yup from 'yup';
 import { Button, Form, Modal } from 'react-bootstrap';
@@ -13,7 +13,6 @@ const ModalAdd = ({ addedChannels, closeHandler }) => {
   const { t } = useTranslation();
   const { addChannel } = useContext(SocketApiContext);
   const inputRef = useRef();
-  const [isAdded, setIsAdded] = useState();
 
   const validationSchema = Yup.object().shape({
     channelName: Yup
@@ -29,25 +28,24 @@ const ModalAdd = ({ addedChannels, closeHandler }) => {
       channelName: '',
     },
     validationSchema,
-    onSubmit: (values) => {
-      const cleanedName = filter.clean(values.channelName);
-      addChannel({ name: cleanedName }, setIsAdded);
+    onSubmit: async (values) => {
+      try {
+        const cleanedName = filter.clean(values.channelName);
+        await addChannel({ name: cleanedName });
+        notify('success', t('toasts.channelAdded'));
+        closeHandler();
+      } catch (error) {
+        notify('error', t('toasts.networkError'));
+        console.log(error);
+      } finally {
+        formik.setSubmitting(false);
+      }
     },
   });
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-
-  useEffect(() => {
-    if (isAdded === false) {
-      notify('error', t('toasts.networkError'));
-    }
-    if (isAdded) {
-      notify('success', t('toasts.channelAdded'));
-      closeHandler();
-    }
-  }, [isAdded]);
 
   return (
     <>
@@ -79,7 +77,7 @@ const ModalAdd = ({ addedChannels, closeHandler }) => {
             <Button onClick={closeHandler} className="me-3" variant="secondary">
               {t('modals.add.cancelBtn')}
             </Button>
-            <Button type="submit" disabled={formik.values.channelName === '' || isAdded === false}>
+            <Button type="submit" disabled={formik.values.channelName === '' || formik.isSubmitting}>
               {t('modals.add.submitBtn')}
             </Button>
           </div>

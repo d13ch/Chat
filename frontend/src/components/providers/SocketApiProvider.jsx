@@ -17,63 +17,30 @@ const SocketApiProvider = ({ children }) => {
   socket.on('renameChannel', (channel) => dispatch(renameChannel(channel)));
 
   const socketApi = {
-    sendMessage: (message, setter) => {
-      socket.timeout(1000).emit('newMessage', message, (error, response) => {
-        if (error) {
-          setter(false);
-          setTimeout(() => setter(undefined), 2000);
-          console.log(error);
-        } else {
-          const { status } = response;
-          if (status === 'ok') {
-            setter(true);
-          }
-        }
-      });
-    },
-    addChannel: (channel, setter) => {
+    sendMessage: (message) => new Promise((resolve, reject) => {
+      socket.timeout(1000).emit('newMessage', message, (error, response) => (
+        response?.status === 'ok' ? resolve(response?.data) : reject(error)
+      ));
+    }),
+    addChannel: (channel) => new Promise((resolve, reject) => {
       socket.timeout(1000).emit('newChannel', channel, (error, response) => {
         if (error) {
-          setter(false);
-          setTimeout(() => setter(undefined), 2000);
-          console.log(error);
-        } else {
-          const { status, data } = response;
-          if (status === 'ok') {
-            dispatch(setActiveChannel(data.id));
-            setter(true);
-          }
+          reject(error);
         }
+        resolve(response?.data);
+        dispatch(setActiveChannel(response?.data.id));
       });
-    },
-    removeChannel: (channel, setter) => {
-      socket.timeout(1000).emit('removeChannel', channel, (error, response) => {
-        if (error) {
-          setter(false);
-          setTimeout(() => setter(undefined), 2000);
-          console.log(error);
-        } else {
-          const { status } = response;
-          if (status === 'ok') {
-            setter(true);
-          }
-        }
-      });
-    },
-    renameChannel: (id, name, setter) => {
-      socket.timeout(1000).emit('renameChannel', { id, name }, (error, response) => {
-        if (error) {
-          setter(false);
-          setTimeout(() => setter(undefined), 2000);
-          console.log(error);
-        } else {
-          const { status } = response;
-          if (status === 'ok') {
-            setter(true);
-          }
-        }
-      });
-    },
+    }),
+    removeChannel: (channel) => new Promise((resolve, reject) => {
+      socket.timeout(1000).emit('removeChannel', channel, (error, response) => (
+        response?.status === 'ok' ? resolve(response?.data) : reject(error)
+      ));
+    }),
+    renameChannel: (id, name) => new Promise((resolve, reject) => {
+      socket.timeout(1000).emit('renameChannel', { id, name }, (error, response) => (
+        response?.status === 'ok' ? resolve(response?.data) : reject(error)
+      ));
+    }),
   };
 
   const contextData = useMemo(() => socketApi, [

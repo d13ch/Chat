@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,22 +11,21 @@ const ModalRemove = ({ closeHandler, channelToProcess }) => {
   const { t } = useTranslation();
   const { removeChannel } = useContext(SocketApiContext);
   const defaultChannelId = useSelector((state) => state.channels.defaultChannel);
-  const [isRemoved, setIsRemoved] = useState();
+  const [isRemoved, setIsRemoved] = useState(true);
 
-  const handleRemove = () => {
-    removeChannel(channelToProcess, setIsRemoved);
-  };
-
-  useEffect(() => {
-    if (isRemoved === false) {
-      notify('error', t('toasts.networkError'));
-    }
-    if (isRemoved) {
+  const handleRemove = async () => {
+    try {
+      await removeChannel(channelToProcess);
       notify('success', t('toasts.channelRemoved'));
       dispatch(setActiveChannel(defaultChannelId));
       closeHandler();
+    } catch (error) {
+      notify('error', t('toasts.networkError'));
+      setIsRemoved(false);
+      setTimeout(() => setIsRemoved(true), 2000);
+      console.log(error);
     }
-  }, [isRemoved]);
+  };
 
   return (
     <>

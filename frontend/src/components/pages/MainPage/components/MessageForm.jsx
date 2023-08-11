@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import React, {
-  useContext, useEffect, useRef, useState,
+  useContext, useEffect, useRef,
 } from 'react';
 import {
   Button, ButtonGroup, Form,
@@ -15,37 +15,33 @@ const MessageForm = ({ activeChannel }) => {
   const inputRef = useRef();
   const { t } = useTranslation();
   const { sendMessage } = useContext(SocketApiContext);
-  const [isSent, setIsSent] = useState();
 
   const formik = useFormik({
     initialValues: {
       body: '',
     },
-    onSubmit: (values) => {
-      const { username } = JSON.parse(localStorage.getItem('user'));
-      const newMessage = {
-        body: filter.clean(values.body),
-        channelId: activeChannel,
-        username,
-      };
-      sendMessage(newMessage, setIsSent);
-      formik.setSubmitting(false);
+    onSubmit: async (values) => {
+      try {
+        const { username } = JSON.parse(localStorage.getItem('user'));
+        const newMessage = {
+          body: filter.clean(values.body),
+          channelId: activeChannel,
+          username,
+        };
+        await sendMessage(newMessage);
+        formik.resetForm();
+      } catch (error) {
+        notify('error', t('toasts.networkError'));
+        formik.setFieldValue('body', values.body);
+      } finally {
+        formik.setSubmitting(false);
+      }
     },
   });
 
   useEffect(() => {
     inputRef.current.focus();
   }, [activeChannel]);
-
-  useEffect(() => {
-    if (isSent === false) {
-      notify('error', t('toasts.networkError'));
-    }
-    if (isSent) {
-      setIsSent(undefined);
-      formik.values.body = '';
-    }
-  }, [isSent]);
 
   return (
     <Form onSubmit={formik.handleSubmit}>
@@ -66,7 +62,7 @@ const MessageForm = ({ activeChannel }) => {
           as={Button}
           type="submit"
           className="align-items-center"
-          disabled={formik.values.body === '' || isSent === false}
+          disabled={formik.values.body === '' || formik.isSubmitting}
         >
           <MdSend />
           <span className="visually-hidden">{t('mainPage.send')}</span>

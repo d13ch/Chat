@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import React, {
-  useContext, useEffect, useRef, useState,
+  useContext, useEffect, useRef,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
@@ -13,7 +13,6 @@ const ModalRename = ({ addedChannels, closeHandler, channelToProcess }) => {
   const { t } = useTranslation();
   const { renameChannel } = useContext(SocketApiContext);
   const inputRef = useRef();
-  const [isRenamed, setIsRenamed] = useState();
 
   const validationSchema = Yup.object().shape({
     channelName: Yup
@@ -29,21 +28,20 @@ const ModalRename = ({ addedChannels, closeHandler, channelToProcess }) => {
       channelName: channelToProcess.name,
     },
     validationSchema,
-    onSubmit: (values) => {
-      const cleanedName = filter.clean(values.channelName);
-      renameChannel(channelToProcess.id, cleanedName, setIsRenamed);
+    onSubmit: async (values) => {
+      try {
+        const cleanedName = filter.clean(values.channelName);
+        await renameChannel(channelToProcess.id, cleanedName);
+        notify('success', t('toasts.channelRenamed'));
+        closeHandler();
+      } catch (error) {
+        notify('error', t('toasts.networkError'));
+        console.log(error);
+      } finally {
+        formik.setSubmitting(false);
+      }
     },
   });
-
-  useEffect(() => {
-    if (isRenamed === false) {
-      notify('error', t('toasts.networkError'));
-    }
-    if (isRenamed) {
-      notify('success', t('toasts.channelRenamed'));
-      closeHandler();
-    }
-  }, [isRenamed]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -81,7 +79,7 @@ const ModalRename = ({ addedChannels, closeHandler, channelToProcess }) => {
             <Button onClick={closeHandler} className="me-3" variant="secondary">
               {t('modals.rename.cancelBtn')}
             </Button>
-            <Button type="submit" disabled={formik.values.channelName === '' || isRenamed === false}>
+            <Button type="submit" disabled={formik.values.channelName === '' || formik.isSubmitting}>
               {t('modals.rename.submitBtn')}
             </Button>
           </div>
