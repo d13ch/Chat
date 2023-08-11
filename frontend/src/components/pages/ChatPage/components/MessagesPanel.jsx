@@ -23,7 +23,7 @@ const MessagesPanel = () => {
           <span># </span>
           {header}
         </h4>
-        <span className="text-muted">{t('mainPage.messagesCount', { count: messagesCount })}</span>
+        <span className="text-muted">{t('chatPage.messagesCount', { count: messagesCount })}</span>
       </div>
       <hr />
       <MessagesBox messages={currentChannelMessages} />

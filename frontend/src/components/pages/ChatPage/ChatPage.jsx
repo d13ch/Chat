@@ -13,7 +13,7 @@ import { addMessages } from '../../../slices/messagesSlice.js';
 import notify from '../../notifications/notify.js';
 import AuthContext from '../../../contexts/AuthContext.jsx';
 
-const MainPage = () => {
+const ChatPage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { logOut } = useContext(AuthContext);
@@ -77,4 +77,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default ChatPage;

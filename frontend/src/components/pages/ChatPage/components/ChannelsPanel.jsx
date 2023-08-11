@@ -19,7 +19,7 @@ const ChannelsPanel = () => {
     <>
       <div className="ps-3 mt-4 mb-2 d-flex justify-content-between align-items-center">
         <b>
-          {t('mainPage.channelsHeader')}
+          {t('chatPage.channelsHeader')}
         </b>
         <ButtonGroup as={Button} onClick={handleAddChannel} className="text-primary fs-4 p-1" variant="light">
           <BsPlusSquare />

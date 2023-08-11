@@ -1,20 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { io } from 'socket.io-client';
 import React, { useMemo } from 'react';
-import { sendMessage } from '../../slices/messagesSlice';
-import {
-  addChannel, removeChannel, renameChannel, setActiveChannel,
-} from '../../slices/channelsSlice';
+import { setActiveChannel } from '../../slices/channelsSlice';
 import SocketApiContext from '../../contexts/SocketApiContext';
 
-const SocketApiProvider = ({ children }) => {
+const SocketApiProvider = ({ children, socket }) => {
   const dispatch = useDispatch();
-  const socket = io();
-
-  socket.on('newMessage', (message) => dispatch(sendMessage(message)));
-  socket.on('newChannel', (channel) => dispatch(addChannel(channel)));
-  socket.on('removeChannel', ({ id }) => dispatch(removeChannel(id)));
-  socket.on('renameChannel', (channel) => dispatch(renameChannel(channel)));
 
   const socketApi = {
     sendMessage: (message) => new Promise((resolve, reject) => {
@@ -43,11 +33,15 @@ const SocketApiProvider = ({ children }) => {
     }),
   };
 
+  const {
+    sendMessage, addChannel, removeChannel, renameChannel,
+  } = socketApi;
+
   const contextData = useMemo(() => socketApi, [
-    socketApi.sendMessage,
-    socketApi.addChannel,
-    socketApi.removeChannel,
-    socketApi.renameChannel,
+    sendMessage,
+    addChannel,
+    removeChannel,
+    renameChannel,
   ]);
 
   return (

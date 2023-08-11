@@ -46,15 +46,15 @@ const MessageForm = ({ activeChannel }) => {
   return (
     <Form onSubmit={formik.handleSubmit}>
       <Form.Group className="input-group">
-        <Form.Label htmlFor="body" hidden>{t('mainPage.formLabel')}</Form.Label>
+        <Form.Label htmlFor="body" hidden>{t('chatPage.formLabel')}</Form.Label>
         <Form.Control
           name="body"
-          aria-label={t('mainPage.ariaLabel')}
+          aria-label={t('chatPage.ariaLabel')}
           id="body"
           type="text"
           onChange={formik.handleChange}
           value={formik.values.body}
-          placeholder={t('mainPage.formPlaceholder')}
+          placeholder={t('chatPage.formPlaceholder')}
           ref={inputRef}
           className="rounded-start"
         />
@@ -65,7 +65,7 @@ const MessageForm = ({ activeChannel }) => {
           disabled={formik.values.body === '' || formik.isSubmitting}
         >
           <MdSend />
-          <span className="visually-hidden">{t('mainPage.send')}</span>
+          <span className="visually-hidden">{t('chatPage.send')}</span>
         </ButtonGroup>
       </Form.Group>
     </Form>

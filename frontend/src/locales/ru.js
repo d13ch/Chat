@@ -21,7 +21,7 @@ const ru = {
       passwordConfirmation: 'Подтвердите пароль',
       submitBtn: 'Зарегистрироваться',
     },
-    mainPage: {
+    chatPage: {
       channelsHeader: 'Каналы',
       channelDropdown: {
         label: 'Управление каналом',
