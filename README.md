@@ -10,7 +10,7 @@ Chat app build with create-react-app with usage of such tools like React with Ho
 
 ### Features
 - Authentication of authorized users and redirect to login page for unauthorized
-- Authorization for new users
+- Registration for new users
 - Adding new channels
 - Removing or renaming channels created by users
 - Validation of sign up and channel forms
