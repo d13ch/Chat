@@ -6,16 +6,29 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/6c22586627344e08a281/maintainability)](https://codeclimate.com/github/d13ch/frontend-project-12/maintainability)
 
 ## Description
-Chat app build with create-react-app with usage of such tools like React with Hooks, Redux Toolkit, Socket.io, Formik and some other. Design and layout are performed with React-Bootsrap. Production errors are monitored by Rollbar.
+Chat app build with create-react-app using React with Hooks, Redux Toolkit, Socket.io and Formik. Design and layout are performed with React-Bootsrap. Production errors are monitored by Rollbar.
 
-### Features
+### Provided features:
 - Authentication of authorized users and redirect to login page for unauthorized
 - Registration for new users
 - Adding new channels
 - Removing or renaming channels created by users
-- Validation of sign up and channel forms
+- Validation of sign up, log in and channels forms
 - Filtering obscene words in message box and channels names
 - Displaying notifications in case of successive actions or errors
 - Forms blocking in case of connection errors
 
-### You can try [DEMO](https://hexlet-chat-bdzx.onrender.com)
+## Getting started
+1. Clone the repo:
+
+    `git clone https://github.com/d13ch/frontend-project-12.git`
+
+2. Install dependencies:
+
+    `make install`
+
+3. Start the app:
+
+    `make start`
+
+### Or you can try [DEMO](https://hexlet-chat-bdzx.onrender.com)
