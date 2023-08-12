@@ -41,7 +41,7 @@ const MessageForm = ({ activeChannel }) => {
 
   useEffect(() => {
     inputRef.current.focus();
-  }, [activeChannel]);
+  }, [activeChannel, formik.isSubmitting]);
 
   return (
     <Form onSubmit={formik.handleSubmit}>
