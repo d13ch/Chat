@@ -15,10 +15,11 @@ import { sendMessage } from './slices/messagesSlice.js';
 import { addChannel, removeChannel, renameChannel } from './slices/channelsSlice.js';
 
 const init = async (socket) => {
+  const selectedLang = localStorage.getItem('lang');
   const i18n = i18next.createInstance();
   const options = {
     resources,
-    fallbackLng: 'ru',
+    fallbackLng: selectedLang ?? 'en',
     interpolation: {
       escapeValue: false,
     },

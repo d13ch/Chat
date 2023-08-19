@@ -2,6 +2,8 @@ const ru = {
   translation: {
     navbar: {
       exitBtn: 'Выйти',
+      en: 'ENG',
+      ru: 'RU',
     },
     loginPage: {
       header: 'Войти',
