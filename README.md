@@ -19,16 +19,19 @@ Chat app build with create-react-app using React with Hooks, Redux Toolkit, Sock
 - Forms blocking in case of connection errors
 
 ## Getting started
-1. Clone the repo:
+### 1. Clone the repo:
+```
+git clone https://github.com/d13ch/frontend-project-12.git
+```
 
-    `git clone https://github.com/d13ch/frontend-project-12.git`
+### 2. Install dependencies:
+```
+make install
+```
 
-2. Install dependencies:
-
-    `make install`
-
-3. Start the app:
-
-    `make start`
+### 3. Start the app:
+```
+make start
+```
 
 ### Or you can try [DEMO](https://hexlet-chat-bdzx.onrender.com)
